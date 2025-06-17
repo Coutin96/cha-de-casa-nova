@@ -86,12 +86,9 @@
       font-weight: bold;
       color: #333;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 500px) {
       .presentes-grid {
-        overflow-x: auto;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(180px, 1fr);
-        display: grid;
+        grid-template-columns: 1fr;
       }
     }
   </style>
