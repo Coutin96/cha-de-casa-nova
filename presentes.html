@@ -87,10 +87,11 @@
       color: #333;
     }
     @media (max-width: 250px) {
-    .presentes-grid {
-    grid-template-columns: repeat(2, 1fr);
+      .presentes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
     }
-  }
   </style>
 </head>
 <body>
