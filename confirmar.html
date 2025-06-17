@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav>
-        <a href="index.html">🏡 Início</a>
-        <a href="confirmar.html">📝 Confirmar Presença</a>
-        <a href="presentes.html">🎁 Lista de Presentes</a>
-      </nav>
+  <nav>
+    <a href="index.html">🏡 Início</a>
+    <a href="confirmar.html">📝 Confirmar Presença</a>
+    <a href="presentes.html">🎁 Lista de Presentes</a>
+  </nav>
   <main class="container">
     <h2>Confirme sua presença 📝</h2>
     <form id="form-confirmacao">
@@ -21,15 +21,31 @@
     <p id="mensagem-confirmacao"></p>
   </main>
 
+  <!-- Importa SDK do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    document.getElementById("form-confirmacao").addEventListener("submit", function(e) {
+    // Configuração do Supabase (substitua pela sua anon key)
+    const supabaseUrl = 'https://twqmokqveiokthfenuzh.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3cW1va3F2ZWlva3RoZmVudXpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxNTk3OTUsImV4cCI6MjA2NTczNTc5NX0.OVYE6b_n861bZfvEeMPWSUImeF0osY9ZUopdW3cZAMQ'; // <-- Atenção: use só a anon key pública!
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById("form-confirmacao").addEventListener("submit", async function(e) {
       e.preventDefault();
       const nome = document.getElementById("nome").value.trim();
-      if (nome) {
-        document.getElementById("mensagem-confirmacao").innerText = `Obrigado, ${nome}! Sua presença foi confirmada.`;
-        document.getElementById("form-confirmacao").reset();
 
-        // Aqui você pode enviar para o Supabase no futuro
+      if (nome) {
+        // Insere no banco
+        const { data, error } = await supabase
+          .from('confirmados')
+          .insert([{ nome }]);
+
+        if (error) {
+          document.getElementById("mensagem-confirmacao").innerText = "Erro ao confirmar presença, tente novamente.";
+          console.error('Erro Supabase:', error);
+        } else {
+          document.getElementById("mensagem-confirmacao").innerText = `Obrigado, ${nome}! Sua presença foi confirmada.`;
+          document.getElementById("form-confirmacao").reset();
+        }
       }
     });
   </script>
