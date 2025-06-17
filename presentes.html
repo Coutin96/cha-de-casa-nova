@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lista de Presentes - Chá de Casa Nova</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #fff;
+    }
+     nav {
+    background: #ff6f91;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+    text-align: center;
+  }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #ff69b4;
+      margin-bottom: 20px;
+    }
+    .presentes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .presente {
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 10px;
+      transition: transform 0.2s;
+    }
+    .presente:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .presente a {
+      display: block;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .presente img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid #ff69b4;
+      margin-bottom: 8px;
+      transition: opacity 0.2s;
+    }
+    .presente img:hover {
+      opacity: 0.85;
+    }
+    .presente h3 {
+      margin: 0 0 6px 0;
+      font-size: 1.1em;
+    }
+    .presente p {
+      margin: 0;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏡 Início</a>
+    <a href="confirmar.html">📝 Confirmar Presença</a>
+    <a href="presentes.html">🎁 Lista de Presentes</a>
+  </nav>
+
+  <main class="container">
+    <h2>🎁 Lista de Presentes</h2>
+    <div class="presentes-grid" id="lista-presentes"></div>
+  </main>
+
+  <script>
+    const presentes = [
+      {
+        id: 1,
+        nome: "Qualquer ajuda",
+        valor: "R$ o quanto puder",
+        imagem: "qualquervalor.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b4e3-2b74-478c-be43-8928178e2500"
+      },
+      {
+        id: 2,
+        nome: "2 Tapetes",
+        valor: "R$ 47,80",
+        imagem: "tapete.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b66b-0a47-4740-ad89-43f6c0427a30"
+      },
+      {
+        id: 3,
+        nome: "Aspirador de pó",
+        valor: "R$ 129,90",
+        imagem: "aspiradordepo.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b72b-5945-4979-ab86-1d9156381708"
+      },
+      {
+        id: 4,
+        nome: "Kit banheiro",
+        valor: "R$ 89,90",
+        imagem: "kitbanheiro.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b7b8-2d28-4fae-92a5-86d9f81659c3"
+      },
+      {
+        id: 5,
+        nome: "Conjunto de taças",
+        valor: "R$ 79,90",
+        imagem: "taças.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850ae93-4c6c-4d25-88e0-29e013e896f9"
+      },
+      {
+        id: 6,
+        nome: "Abajur",
+        valor: "R$ 49,99",
+        imagem: "abajur.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b152-ee50-4b7b-ad53-0f35dacd0744"
+      },
+      {
+        id: 7,
+        nome: "Panela Elétrica",
+        valor: "R$ 250,00",
+        imagem: "panelaeletrica.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b202-1744-405d-a34b-12e6a2b87614"
+      },
+      {
+        id: 8,
+        nome: "Jogo de Cama",
+        valor: "R$ 142,90",
+        imagem: "jogodecama.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b3c7-2b64-42ad-a916-7ab8fb21339c"
+      },
+      {
+        id: 9,
+        nome: "Sapateira",
+        valor: "R$ 239,90",
+        imagem: "sapateira.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b8bf-6dd1-45b1-b302-81e7ce10d8cf"
+      },
+      {
+        id: 10,
+        nome: "Varal de chão",
+        valor: "R$ 92,50",
+        imagem: "varal.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b945-dbdb-4a0a-985e-0ea90af10d22"
+      },
+      {
+        id: 11,
+        nome: "Conjunto de Refratários",
+        valor: "R$ 65,90",
+        imagem: "assadeiras.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850b9e4-4031-458e-a1f7-fdc1b9d08149"
+      },
+      {
+        id: 12,
+        nome: "Escorredor com pegador",
+        valor: "R$ 46,98",
+        imagem: "escorredor.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850baa1-9c20-4b63-906e-0cbfa0c9b666"
+      },
+      {
+        id: 13,
+        nome: "Kit 6 cadeiras",
+        valor: "R$ 769,58",
+        imagem: "cadeiras.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bb89-b038-4571-b333-6bc499d441f7"
+      },
+      {
+        id: 13,
+        nome: "1 Cadeira",
+        valor: "R$ 128,30",
+        imagem: "cadeiras.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bc02-9430-4687-b143-3d736affe7ba"
+      },
+      {
+        id: 14,
+        nome: "Sofa",
+        valor: "R$ 1022,39",
+        imagem: "sofa.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bcb6-7b7a-43bf-98ca-4b32f16ab16d"
+      },
+      {
+        id: 15,
+        nome: "Lixeiras",
+        valor: "R$ 118,90",
+        imagem: "lixeiras.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bd57-2833-4c81-8fca-3f6ff601e7c1"
+      },
+      {
+        id: 16,
+        nome: "Cabides",
+        valor: "R$ 94,84",
+        imagem: "cabides.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bdf4-4f81-4d6c-bfdd-e6e629d39007"
+      },
+      {
+        id: 17,
+        nome: "Cesto de roupa suja",
+        valor: "R$ 50,00",
+        imagem: "cesto.jpeg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850beac-f90a-44da-8c92-8edd79bdfa90"
+      },
+      {
+        id: 17,
+        nome: "10 Peças Silicone Inox",
+        valor: "R$ 73,00",
+        imagem: "utensilios.jpg",
+        link: "https://nubank.com.br/cobrar/11t0g/6850bfa3-86e8-4363-8c73-e796cfb8b984"
+      },
+      {
+        id: 18,
+        nome: "Armario Lavanderia",
+        valor: "R$ 299,98",
+        imagem: "armario.webp",
+        link: "https://nubank.com.br/cobrar/11t0g/6850c085-24a6-4f6c-aec8-5b571faf735a"
+      }
+    ];
+
+    const container = document.getElementById("lista-presentes");
+
+    presentes.forEach(presente => {
+      const div = document.createElement("div");
+      div.className = "presente";
+      div.innerHTML = `
+        <a href="${presente.link}" target="_blank" rel="noopener" title="Clique para pagar ${presente.nome}">
+          <img src="${presente.imagem}" alt="${presente.nome}" />
+        </a>
+        <h3>${presente.nome}</h3>
+        <p>${presente.valor}</p>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>

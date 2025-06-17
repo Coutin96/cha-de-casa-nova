@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmar Presença</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏡 Início</a>
+        <a href="confirmar.html">📝 Confirmar Presença</a>
+        <a href="presentes.html">🎁 Lista de Presentes</a>
+      </nav>
+  <main class="container">
+    <h2>Confirme sua presença 📝</h2>
+    <form id="form-confirmacao">
+      <input type="text" id="nome" placeholder="Seu nome completo" required />
+      <button type="submit">Confirmar</button>
+    </form>
+    <p id="mensagem-confirmacao"></p>
+  </main>
+
+  <script>
+    document.getElementById("form-confirmacao").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value.trim();
+      if (nome) {
+        document.getElementById("mensagem-confirmacao").innerText = `Obrigado, ${nome}! Sua presença foi confirmada.`;
+        document.getElementById("form-confirmacao").reset();
+
+        // Aqui você pode enviar para o Supabase no futuro
+      }
+    });
+  </script>
+</body>
+</html>
