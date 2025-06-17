@@ -22,32 +22,43 @@
   </main>
 
   <!-- Importa SDK do Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // Configuração do Supabase (substitua pela sua anon key)
-    const supabaseUrl = 'https://twqmokqveiokthfenuzh.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3cW1va3F2ZWlva3RoZmVudXpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxNTk3OTUsImV4cCI6MjA2NTczNTc5NX0.OVYE6b_n861bZfvEeMPWSUImeF0osY9ZUopdW3cZAMQ'; // <-- Atenção: use só a anon key pública!
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm').then(({ createClient }) => {
+        const supabaseUrl = 'https://twqmokqveiokthfenuzh.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3cW1va3F2ZWlva3RoZmVudXpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxNTk3OTUsImV4cCI6MjA2NTczNTc5NX0.OVYE6b_n861bZfvEeMPWSUImeF0osY9ZUopdW3cZAMQ'
+        const supabase = createClient(supabaseUrl, supabaseKey)
 
-    document.getElementById("form-confirmacao").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const nome = document.getElementById("nome").value.trim();
+        const form = document.getElementById('form-confirmacao')
+        const mensagem = document.getElementById('mensagem-confirmacao')
 
-      if (nome) {
-        // Insere no banco
-        const { data, error } = await supabase
-          .from('confirmados')
-          .insert([{ nome }]);
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault()
+          const nome = document.getElementById('nome').value.trim()
+          if (!nome) return
 
-        if (error) {
-          document.getElementById("mensagem-confirmacao").innerText = "Erro ao confirmar presença, tente novamente.";
-          console.error('Erro Supabase:', error);
-        } else {
-          document.getElementById("mensagem-confirmacao").innerText = `Obrigado, ${nome}! Sua presença foi confirmada.`;
-          document.getElementById("form-confirmacao").reset();
-        }
-      }
-    });
+          mensagem.textContent = 'Salvando confirmação...'
+
+          try {
+            const { data, error } = await supabase
+              .from('confirmados')
+              .insert([{ nome }])
+
+            if (error) {
+              mensagem.textContent = 'Erro ao salvar: ' + error.message
+              console.error(error)
+              return
+            }
+
+            mensagem.textContent = `Obrigado, ${nome}! Sua presença foi confirmada.`
+            form.reset()
+          } catch (err) {
+            mensagem.textContent = 'Erro inesperado: ' + err.message
+            console.error(err)
+          }
+        })
+      })
+    })
   </script>
 </body>
 </html>
