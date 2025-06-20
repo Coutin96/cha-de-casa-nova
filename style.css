@@ -8,7 +8,7 @@
 /* Fonte e cores gerais */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(145deg, #ffe5ec, #fff);
+  background: linear-gradient(145deg, #f3b9c8, #ffcfcf);
   color: #333;
   min-height: 100vh;
   display: flex;
