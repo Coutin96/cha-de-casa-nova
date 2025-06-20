@@ -72,6 +72,25 @@ h1, h2, h3 {
   background-color: #e85c7c;
 }
 
+/* Imagem do casal */
+.foto-casal {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.foto-casal img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.foto-casal img:hover {
+  transform: scale(1.02);
+}
+
+
 /* Botões em tela pequena: um embaixo do outro */
 @media (max-width: 600px) {
   .botao {
